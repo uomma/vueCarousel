@@ -1,29 +1,5 @@
 'use strict'
-/* 
-const games = [
-    {
-        img: 'img/gt5.jpg',
-        title: 'gtaV',
-        text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis velit fugiat doloribus laboriosam eos, sunt quasi ad dolor harum repellat. In, illo. Sint et ex iste dicta vitae, fugiat deleniti!'
-    }, {
-        img: 'fortnite.jpg',
-        title: 'fortnite',
-        text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis velit fugiat doloribus laboriosam eos, sunt quasi ad dolor harum repellat. In, illo. Sint et ex iste dicta vitae, fugiat deleniti!'
-    }, {
-        img: 'halo4.png',
-        title: 'halo4',
-        text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis velit fugiat doloribus laboriosam eos, sunt quasi ad dolor harum repellat. In, illo. Sint et ex iste dicta vitae, fugiat deleniti!'
-    }, {
-        img: 'ufc4.jpg',
-        title: 'ufc4',
-        text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis velit fugiat doloribus laboriosam eos, sunt quasi ad dolor harum repellat. In, illo. Sint et ex iste dicta vitae, fugiat deleniti!'
-    }, {
-        img: 'f1.png',
-        title: 'f1',
-        text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis velit fugiat doloribus laboriosam eos, sunt quasi ad dolor harum repellat. In, illo. Sint et ex iste dicta vitae, fugiat deleniti!'
-    }
-]
- */
+
 
 const { createApp } = Vue;
 
@@ -31,6 +7,8 @@ createApp({
     data() {
         return {
             shownGame: 0,
+            timeOutTime: 3,
+            curentInterval: null,
             games: [{
                 img: 'img/gt5.jpg',
                 title: 'gta V',
@@ -74,11 +52,29 @@ createApp({
                 this.shownGame = 0;
             };
         },
-        //al click su una thumbs viene visualizzata in grande la stessa immagine
+
         switchImg(index, event) {
             this.shownGame = index
-        }
+        },
 
-    }
+        stopSlide() {
+            clearInterval(this.curentInterval),
+                console.log('stop')
+        },
+
+        startSlide() {
+            this.curentInterval = setInterval(() => {
+                this.nextGame()
+            }, this.timeOutTime * 1000);
+            console.log('start')
+
+        },
+
+
+    },
+    mounted() {
+
+        this.startSlide();
+    },
 
 }).mount('#app');
